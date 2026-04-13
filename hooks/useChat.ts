@@ -20,7 +20,7 @@ export function useChat() {
   const abortRef = useRef<AbortController | null>(null);
 
   const sendMessage = useCallback(
-    async (text: string) => {
+    async (text: string, fileIds: string[] = []) => {
       if (!text.trim() || streaming) return;
 
       const sessionId = activeSessionId;
@@ -55,7 +55,7 @@ export function useChat() {
         const response = await fetch(`${API_BASE}/api/chat`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text }),
+          body: JSON.stringify({ message: text, file_ids: fileIds }),
           signal: abortRef.current.signal,
         });
 

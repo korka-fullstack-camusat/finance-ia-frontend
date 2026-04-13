@@ -9,7 +9,7 @@ export function TaskList() {
     return (
       <div className="space-y-2">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-24 bg-[#1c1c22] rounded-lg animate-pulse" />
+          <div key={i} className="h-24 bg-[#F1F5F9] rounded-xl animate-pulse" />
         ))}
       </div>
     );
@@ -17,7 +17,7 @@ export function TaskList() {
 
   if (error) {
     return (
-      <div className="text-red-400 text-xs font-mono p-3 bg-red-900/10 rounded-lg border border-red-900/30">
+      <div className="text-red-500 text-xs p-3 bg-red-50 rounded-xl border border-red-200">
         Erreur de connexion au backend
       </div>
     );

@@ -2,8 +2,7 @@
 import { useCallback, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { uploadFile, deleteFile, fetchFiles } from "@/lib/api";
-import { useAppStore } from "@/store/useAppStore";
-import { formatFileSize, formatDate } from "@/lib/utils";
+import { formatFileSize } from "@/lib/utils";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 export function FileUpload() {
@@ -54,7 +53,7 @@ export function FileUpload() {
 
   return (
     <div className="space-y-2">
-      <h3 className="text-[11px] font-mono text-gray-500 uppercase tracking-widest">
+      <h3 className="text-[11px] font-semibold text-[#64748B] uppercase tracking-widest">
         Fichiers
       </h3>
 
@@ -62,10 +61,10 @@ export function FileUpload() {
         onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
-        className={`flex flex-col items-center justify-center h-16 rounded-lg border-2 border-dashed cursor-pointer transition-colors ${
+        className={`flex flex-col items-center justify-center h-14 rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
           dragging
-            ? "border-[#7c6ff7] bg-[#7c6ff7]/10"
-            : "border-white/10 hover:border-[#7c6ff7]/40 hover:bg-[#7c6ff7]/5"
+            ? "border-[#2563EB] bg-[#EFF6FF]"
+            : "border-[#E2E8F0] hover:border-[#2563EB]/50 hover:bg-[#F8FAFC]"
         }`}
       >
         <input
@@ -75,34 +74,36 @@ export function FileUpload() {
           onChange={onInput}
         />
         {uploading ? (
-          <p className="text-[11px] font-mono text-[#7c6ff7] animate-pulse">Upload...</p>
+          <p className="text-[11px] text-[#2563EB] font-medium animate-pulse">Envoi...</p>
         ) : (
           <>
-            <span className="text-lg">📂</span>
-            <p className="text-[10px] font-mono text-gray-500 mt-0.5">CSV / XLSX / PDF</p>
+            <span className="text-base">📂</span>
+            <p className="text-[10px] text-[#94A3B8] mt-0.5">CSV · XLSX · PDF</p>
           </>
         )}
       </label>
 
-      <div className="space-y-1 max-h-28 overflow-y-auto">
-        {files.map((f) => (
-          <div
-            key={f.id}
-            className="flex items-center justify-between bg-[#1c1c22] rounded px-2 py-1 border border-white/5"
-          >
-            <div className="min-w-0 flex-1">
-              <p className="text-[11px] text-gray-300 truncate font-mono">{f.original_name}</p>
-              <p className="text-[9px] text-gray-600 font-mono">{formatFileSize(f.file_size)}</p>
-            </div>
-            <button
-              onClick={() => deleteMut.mutate(f.id)}
-              className="text-gray-600 hover:text-red-400 text-xs ml-2 shrink-0 transition-colors"
+      {files.length > 0 && (
+        <div className="space-y-1 max-h-24 overflow-y-auto">
+          {files.map((f) => (
+            <div
+              key={f.id}
+              className="flex items-center justify-between bg-[#F8FAFC] rounded-lg px-2 py-1.5 border border-[#E2E8F0]"
             >
-              ✕
-            </button>
-          </div>
-        ))}
-      </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[11px] text-[#0F172A] truncate font-medium">{f.original_name}</p>
+                <p className="text-[9px] text-[#94A3B8]">{formatFileSize(f.file_size)}</p>
+              </div>
+              <button
+                onClick={() => deleteMut.mutate(f.id)}
+                className="text-[#94A3B8] hover:text-red-400 text-xs ml-2 shrink-0 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

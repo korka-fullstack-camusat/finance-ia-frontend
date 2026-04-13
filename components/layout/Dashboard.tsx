@@ -1,40 +1,45 @@
 "use client";
 import { TaskList } from "@/components/tasks/TaskList";
 import { FileUpload } from "@/components/files/FileUpload";
-import { ResultsPanel } from "@/components/results/ResultsPanel";
-import { NotificationList } from "@/components/notifications/NotificationList";
 import { ChatPanel } from "@/components/chat/ChatPanel";
+import { ArtifactPanel } from "@/components/results/ArtifactPanel";
+import { NotificationList } from "@/components/notifications/NotificationList";
 
 export function Dashboard() {
   return (
-    <div className="flex flex-1 overflow-hidden h-full">
-      {/* Left column — Tasks + Files */}
-      <aside className="w-60 shrink-0 bg-[#17171c] border-r border-white/5 flex flex-col p-3 gap-4 overflow-hidden">
-        <div className="flex-1 overflow-y-auto min-h-0">
-          <h2 className="text-[11px] font-mono text-gray-500 uppercase tracking-widest mb-2">
-            Tâches
-          </h2>
+    <div className="flex flex-1 overflow-hidden h-full bg-[#F8FAFC]">
+
+      {/* ── Left sidebar : Tasks + Files + Notifications ── */}
+      <aside className="w-64 shrink-0 bg-white border-r border-[#E2E8F0] flex flex-col overflow-hidden">
+        {/* Tasks */}
+        <div className="flex-1 overflow-y-auto p-4 min-h-0">
+          <p className="text-[10px] font-semibold text-[#94A3B8] uppercase tracking-widest mb-3">
+            Tâches automatisées
+          </p>
           <TaskList />
         </div>
-        <div className="shrink-0">
+
+        {/* Files */}
+        <div className="border-t border-[#E2E8F0] p-4">
           <FileUpload />
         </div>
-      </aside>
 
-      {/* Center column — Results */}
-      <main className="flex-1 min-w-0 p-4 overflow-hidden flex flex-col">
-        <ResultsPanel />
-      </main>
-
-      {/* Right column — Notifications + Chat */}
-      <aside className="w-72 shrink-0 bg-[#17171c] border-l border-white/5 flex flex-col p-3 gap-3 overflow-hidden">
-        <div className="h-48 shrink-0 overflow-hidden">
+        {/* Notifications */}
+        <div className="border-t border-[#E2E8F0] p-4 max-h-48 overflow-y-auto">
           <NotificationList />
         </div>
-        <div className="flex-1 min-h-0 overflow-hidden">
-          <ChatPanel />
-        </div>
       </aside>
+
+      {/* ── Center : Chat (Claude-style) ── */}
+      <main className="flex-1 min-w-0 flex flex-col overflow-hidden border-r border-[#E2E8F0]">
+        <ChatPanel />
+      </main>
+
+      {/* ── Right : Artifact panel ── */}
+      <aside className="w-[480px] shrink-0 bg-white flex flex-col overflow-hidden">
+        <ArtifactPanel />
+      </aside>
+
     </div>
   );
 }

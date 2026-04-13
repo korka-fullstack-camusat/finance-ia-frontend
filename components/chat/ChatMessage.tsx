@@ -1,28 +1,37 @@
 "use client";
 import type { ChatMessage as ChatMsg } from "@/types";
 
-interface ChatMessageProps {
-  message: ChatMsg;
-}
+interface Props { message: ChatMsg; }
 
-export function ChatMessage({ message }: ChatMessageProps) {
+export function ChatMessage({ message }: Props) {
   const isUser = message.role === "user";
 
+  if (isUser) {
+    return (
+      <div className="flex justify-end px-6 py-1 animate-fadeIn">
+        <div className="max-w-[75%] bg-[#2563EB] text-white rounded-2xl rounded-br-sm px-4 py-2.5 text-sm leading-relaxed shadow-sm">
+          {message.content}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`flex ${isUser ? "justify-end" : "justify-start"} animate-fadeIn`}>
-      <div
-        className={`max-w-[85%] rounded-lg px-3 py-2 text-[12px] leading-relaxed ${
-          isUser
-            ? "bg-[#7c6ff7]/20 text-white border border-[#7c6ff7]/30"
-            : "bg-[#1c1c22] text-gray-200 border border-white/5"
-        }`}
-      >
-        {!isUser && (
-          <p className="text-[9px] text-[#7c6ff7] font-mono uppercase tracking-widest mb-1">
-            FinanceAI
-          </p>
-        )}
-        <p className="whitespace-pre-wrap">{message.content || "▊"}</p>
+    <div className="flex gap-3 px-6 py-1 animate-fadeIn">
+      {/* Avatar FinanceAI */}
+      <div className="w-7 h-7 rounded-full bg-[#2563EB] flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+        <span className="text-white text-xs font-bold">F</span>
+      </div>
+
+      <div className="flex-1 min-w-0">
+        <p className="text-[11px] font-semibold text-[#2563EB] mb-1">FinanceAI</p>
+        <div
+          className={`text-sm text-[#0F172A] leading-relaxed whitespace-pre-wrap ${
+            !message.content ? "typing-cursor" : ""
+          }`}
+        >
+          {message.content || " "}
+        </div>
       </div>
     </div>
   );

@@ -9,22 +9,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0d0d10",
-        surface: "#17171c",
-        accent: "#7c6ff7",
-      },
-      fontFamily: {
-        syne: ["var(--font-syne)", "sans-serif"],
-        mono: ["var(--font-dm-mono)", "monospace"],
+        bg:       "#F8FAFC",
+        surface:  "#FFFFFF",
+        surface2: "#F1F5F9",
+        border:   "#E2E8F0",
+        accent:   "#2563EB",
+        "accent-light": "#EFF6FF",
+        muted:    "#64748B",
+        subtle:   "#94A3B8",
       },
       animation: {
-        fadeIn: "fadeIn 0.2s ease-out forwards",
+        fadeIn:  "fadeIn 0.25s ease-out forwards",
+        slideIn: "slideIn 0.3s ease-out forwards",
       },
       keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0", transform: "translateY(4px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
+        fadeIn:  { "0%": { opacity: "0", transform: "translateY(6px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        slideIn: { "0%": { opacity: "0", transform: "translateX(12px)" }, "100%": { opacity: "1", transform: "translateX(0)" } },
       },
     },
   },

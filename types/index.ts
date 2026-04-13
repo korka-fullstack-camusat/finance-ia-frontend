@@ -51,6 +51,7 @@ export interface Notification {
   task_id: string | null;
   task_name: string;
   message: string;
+  type?: "success" | "error" | "info";
   channel: "email" | "slack" | "system";
   is_read: boolean;
   created_at: string;
@@ -61,6 +62,14 @@ export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: string;
+}
+
+export interface ConversationSession {
+  id: string;
+  title: string;
+  createdAt: string;
+  lastMessageAt: string | null;
+  messages: ChatMessage[];
 }
 
 export interface LogEntry {
